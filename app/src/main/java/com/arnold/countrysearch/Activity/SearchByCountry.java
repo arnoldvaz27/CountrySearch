@@ -45,6 +45,7 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
     private CountryAdapter countryAdapter;
     JSONObject cityInfo;
     String  url;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
 
         search = findViewById(R.id.search);
         countryRecyclerView = findViewById(R.id.RecyclerView);
+        loadingBar = new ProgressDialog(this);
 
         search.setSelection(search.getText().length());
         search.requestFocus();
@@ -79,7 +81,11 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
         });
     }
     private void Fetching() {
-
+        loadingBar.setTitle("Fetching Details");
+        loadingBar.setMessage("Please Wait while we are receiving the details for you...");
+        loadingBar.setCanceledOnTouchOutside(false);
+        loadingBar.getProgress();
+        loadingBar.show();
         url = "https://restcountries.eu/rest/v2/name/"+search.getText().toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -162,12 +168,13 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
                         new SaveNoteTask().execute();
                     }
 
-                    Display();//loading bar dismissed as the data has been loaded and is saved in the database
+                    Display();
+                    loadingBar.dismiss();//loading bar dismissed as the data has been loaded and is saved in the database
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, error -> showToast("Error, Please check the country name and try again")); //in case of any error this toast will be executed
+        }, error -> showToast("Error, Please check the country name and try again"));loadingBar.dismiss(); //in case of any error this toast will be executed
 
         MySingleton.getInstance(SearchByCountry.this).addToRequestQueue(request);
 
