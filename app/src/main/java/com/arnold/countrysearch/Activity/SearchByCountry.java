@@ -63,6 +63,13 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
         linearLayoutManager.setStackFromEnd(true);
         countryRecyclerView.setLayoutManager(linearLayoutManager);
 
+        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeletingData();
+            }
+        });
+
         findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

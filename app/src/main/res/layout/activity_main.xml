@@ -92,6 +92,31 @@
     </LinearLayout>
 
 
+
+    <LinearLayout
+        android:id="@+id/SearchByCapital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/capital"
+            android:layout_marginStart="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search by Capital"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/white" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/SearchByCurrency"
         android:layout_width="match_parent"
@@ -110,7 +135,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search by Currency"
+            android:text="Search by Currency Code"
             android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="12dp"
@@ -134,32 +159,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search by Language"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="12dp"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/SearchByCapital"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/capital"
-            android:layout_marginStart="3dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search by Capital"
+            android:text="Search by Language Code"
             android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="12dp"
