@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Country Search</string>
+    <string name="splashscreenimage">Splash Screen Image</string>
+    <string name="important_note">Please keep the dark mode off to view the flags of the countries in a better way</string>
+    <string name="delete_image">Delete Image</string>
+    <string name="reload_image">Reload Image</string>
+    <string name="flag_image">Flag Images</string>
+    <string name="countries_information">Countries Information</string>
+</resources>
