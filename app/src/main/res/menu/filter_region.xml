@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/EUR"
+        android:title="@string/european_region" />
+
+    <item
+        android:id="@+id/ASR"
+        android:title="@string/asian_region" />
+    <item
+        android:id="@+id/AMR"
+        android:title="@string/american_region" />
+    <item
+        android:id="@+id/AFR"
+        android:title="@string/african_region" />
+    <item
+        android:id="@+id/OCR"
+        android:title="@string/oceanic_region" />
+</menu>

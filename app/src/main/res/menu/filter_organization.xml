@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/EU"
+        android:title="@string/european_union" />
+    <item
+        android:id="@+id/EFTA"
+        android:title="@string/european_tree_trade_association" />
+    <item
+        android:id="@+id/CARICOM"
+        android:title="@string/caribbean_community" />
+    <item
+        android:id="@+id/PA"
+        android:title="@string/pacific_alliance" />
+    <item
+        android:id="@+id/AU"
+        android:title="@string/african_union" />
+    <item
+        android:id="@+id/USAN"
+        android:title="@string/union_of_south_american_nations" />
+    <item
+        android:id="@+id/EEU"
+        android:title="@string/eurasian_economic_union" />
+    <item
+        android:id="@+id/AL"
+        android:title="@string/arab_league" />
+    <item
+        android:id="@+id/ASEAN"
+        android:title="@string/association_of_southeast_asian_nations" />
+    <item
+        android:id="@+id/CAIS"
+        android:title="@string/central_american_integration_system" />
+    <item
+        android:id="@+id/CEFTA"
+        android:title="@string/central_european_free_trade_agreement" />
+    <item
+        android:id="@+id/NAFTA"
+        android:title="@string/north_american_free_trade_agreement" />
+    <item
+        android:id="@+id/SAARC"
+        android:title="@string/south_asian_association_for_regional_cooperation" />
+
+</menu>

@@ -48,7 +48,6 @@ public class SearchByLanguage extends AppCompatActivity implements CountryListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setStatusBarColor(getResources().getColor(R.color.holo_red));
-        getWindow().setNavigationBarColor(getResources().getColor(R.color.background));
         setContentView(R.layout.searchbylanguage);
 
         search = findViewById(R.id.search);

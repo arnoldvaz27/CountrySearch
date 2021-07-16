@@ -22,7 +22,7 @@ public class ImageFetch {
         if (httpClient == null) {
             //used for caching the image and storing it locally so that the user can view the images in offline mode as well
             httpClient = new OkHttpClient.Builder()
-                    .cache(new Cache(context.getCacheDir(), 5 * 1024 * 1024))
+                    .cache(new Cache(context.getCacheDir(), 1000L * 8192L * 8192L))
                     .build();
         }
 

@@ -49,7 +49,6 @@ public class SearchByCapital extends AppCompatActivity implements CountryListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setStatusBarColor(getResources().getColor(R.color.holo_red));
-        getWindow().setNavigationBarColor(getResources().getColor(R.color.background));
         setContentView(R.layout.searchbycapital);
 
         loadingBar = new ProgressDialog(this);

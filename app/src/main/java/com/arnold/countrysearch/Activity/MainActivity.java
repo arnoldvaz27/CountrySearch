@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity{
         findViewById(R.id.SearchByCapital).setOnClickListener(v -> startActivity(new Intent(MainActivity.this,SearchByCapital.class)));
         findViewById(R.id.SearchByCallingCode).setOnClickListener(v -> startActivity(new Intent(MainActivity.this,SearchByCallingCode.class)));
         findViewById(R.id.SearchByInitialLetter).setOnClickListener(v -> startActivity(new Intent(MainActivity.this,SearchByInitialLetter.class)));
+        findViewById(R.id.SearchByOrganizations).setOnClickListener(v -> startActivity(new Intent(MainActivity.this,SearchByOrganizations.class)));
+        findViewById(R.id.SearchByRegion).setOnClickListener(v -> startActivity(new Intent(MainActivity.this,SearchByRegion.class)));
+        findViewById(R.id.WorldWeb).setOnClickListener(v -> startActivity(new Intent(MainActivity.this,WorldWeb.class)));
     }
-
-
 }

@@ -6,4 +6,23 @@
     <string name="reload_image">Reload Image</string>
     <string name="flag_image">Flag Images</string>
     <string name="countries_information">Countries Information</string>
+
+    <string name="european_union">European Union</string>
+    <string name="european_tree_trade_association">European Tree Trade Association</string>
+    <string name="caribbean_community">Caribbean Community</string>
+    <string name="pacific_alliance">Pacific Alliance</string>
+    <string name="african_union">African Union</string>
+    <string name="union_of_south_american_nations">Union of South American Nations</string>
+    <string name="eurasian_economic_union">Eurasian Economic Union</string>
+    <string name="arab_league">Arab League</string>
+    <string name="association_of_southeast_asian_nations">Association of Southeast Asian Nations</string>
+    <string name="central_american_integration_system">Central American Integration System</string>
+    <string name="central_european_free_trade_agreement">Central European Free Trade Agreement</string>
+    <string name="north_american_free_trade_agreement">North American Free Trade Agreement</string>
+    <string name="south_asian_association_for_regional_cooperation">South Asian Association for Regional Cooperation</string>
+    <string name="european_region">European Region</string>
+    <string name="asian_region">Asian Region</string>
+    <string name="american_region">American Region</string>
+    <string name="african_region">African Region</string>
+    <string name="oceanic_region">Oceanic Region</string>
 </resources>

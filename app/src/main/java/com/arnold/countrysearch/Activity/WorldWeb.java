@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,62 +32,77 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchByInitialLetter extends AppCompatActivity implements CountryListeners {
-
-    EditText search;
-    String countryName, countryBorders, population, subregion, region, capital, flag, languages,topLevelDomain,alpha2Code,alpha3Code
-            ,callingCodes,altSpellings,latlng,demonym,area,gini,timezones,nativeName,numericCode,currencies,cioc;
+public class WorldWeb extends AppCompatActivity implements CountryListeners {
+    ImageView imageView;
+    String countryName, countryBorders, population, subregion, region, capital, flag, languages,topLevelDomain,area,latlng,numericCode,nativeName;
     private RecyclerView countryRecyclerView;
     private List<Country> countriesList;
     private CountryAdapter countryAdapter;
     JSONObject cityInfo;
-    String  url;
     private ProgressDialog loadingBar;
+    String url;
+    TextView worldWeb;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setStatusBarColor(getResources().getColor(R.color.holo_red));
-        setContentView(R.layout.searchbyinitialletter);
+        setContentView(R.layout.worldweb);
 
-        search = findViewById(R.id.search);
-        countryRecyclerView = findViewById(R.id.RecyclerView);
+         //initializing
         loadingBar = new ProgressDialog(this);
+        imageView = findViewById(R.id.delete);
+        countryRecyclerView = findViewById(R.id.RecyclerView);
+        worldWeb = findViewById(R.id.worldWeb);
 
-        search.setSelection(search.getText().length());
-        search.requestFocus();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchByInitialLetter.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(WorldWeb.this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         countryRecyclerView.setLayoutManager(linearLayoutManager);
 
-        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-            }
+        //Checking whether the device android version is 9/P or above
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            findViewById(R.id.card).setVisibility(View.VISIBLE);
+            findViewById(R.id.Message).setSelected(true);
+        }
+
+        DataRefreshed();
+        url = "https://restcountries.eu/rest/v2/all";
+        worldWeb.setText("World Web");
+        Fetching();
+
+        //imageview with click listener, which will delete the data after the user clicks on this view
+        imageView.setOnClickListener(v -> DeletingData());
+        worldWeb.setText("World web");
+
+        //imageview with click listener, which will reload the whole activity without any animation.
+        findViewById(R.id.refresh).setOnClickListener(v -> {
+            Intent i = new Intent(WorldWeb.this, WorldWeb.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(i);
+            overridePendingTransition(0, 0);
         });
 
-        findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-                Fetching();
-            }
-        });
     }
-
     private void Fetching() {
+        //loading bar to show the user that the data is retrieving
         loadingBar.setTitle("Fetching Details");
         loadingBar.setMessage("Please Wait while we are receiving the details for you...");
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.getProgress();
         loadingBar.show();
-        url = "https://restcountries.eu/rest/v2/name/"+search.getText().toString();
+
+        //url of the api and the region = asia
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                int b = response.length();
+                worldWeb.append(" (Total : "+b+" Countries)" );
                 try {
                     for (int i = 0; i < response.length(); i++) {
+
                         languages = null;
                         cityInfo = response.getJSONObject(i);
                         countryName = cityInfo.getString("name");
@@ -96,19 +112,10 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
                         region = cityInfo.getString("region");
                         capital = cityInfo.getString("capital");
                         topLevelDomain = cityInfo.getString("topLevelDomain");
-                        alpha2Code = cityInfo.getString("alpha2Code");
-                        alpha3Code = cityInfo.getString("alpha3Code");
-                        callingCodes = cityInfo.getString("callingCodes");
-                        altSpellings = cityInfo.getString("altSpellings");
-                        latlng = cityInfo.getString("latlng");
-                        demonym = cityInfo.getString("demonym");
                         area = cityInfo.getString("area");
-                        gini = cityInfo.getString("gini");
-                        timezones = cityInfo.getString("timezones");
-                        nativeName = cityInfo.getString("nativeName");
+                        latlng = cityInfo.getString("latlng");
                         numericCode = cityInfo.getString("numericCode");
-                        currencies = cityInfo.getString("currencies");
-                        cioc = cityInfo.getString("cioc");
+                        nativeName = cityInfo.getString("nativeName");
                         JSONArray movies = cityInfo.getJSONArray("languages");
                         for (int j = 0; j < movies.length(); j++) {
                             JSONObject details = movies.getJSONObject(j);
@@ -129,19 +136,10 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
                         country.setCapital(capital);
                         country.setFlagPath(flag);
                         country.setTopLevelDomain(topLevelDomain);
-                        country.setAlpha2Code(alpha2Code);
-                        country.setAlpha3Code(alpha3Code);
-                        country.setCallingCodes(callingCodes);
-                        country.setAltSpellings(altSpellings);
-                        country.setLatlng(latlng);
-                        country.setDemonym(demonym);
                         country.setArea(area);
-                        country.setGini(gini);
-                        country.setTimezones(timezones);
                         country.setNativeName(nativeName);
+                        country.setLatlng(latlng);
                         country.setNumericCode(numericCode);
-                        country.setCurrencies(currencies);
-                        country.setCioc(cioc);
 
                         //Async task used as the saving of the data to room database will be executed on the background thread
                         @SuppressLint("StaticFieldLeak")
@@ -164,24 +162,27 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
                     }
 
                     Display();
-                    loadingBar.dismiss();//loading bar dismissed as the data has been loaded and is saved in the database
+                    loadingBar.dismiss(); //loading bar dismissed as the data has been loaded and is saved in the database
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, error -> showToast("Error, Please check the initial letter code and try again"));loadingBar.dismiss(); //in case of any error this toast will be executed
+        }, error ->  Toast.makeText(WorldWeb.this, "Error, Please make sure the internet is on", Toast.LENGTH_SHORT).show());loadingBar.dismiss(); //loading bar dismissed as the data has been loaded and is saved in the database); //in case of any error this toast will be executed
 
-        MySingleton.getInstance(SearchByInitialLetter.this).addToRequestQueue(request);
+        MySingleton.getInstance(WorldWeb.this).addToRequestQueue(request);
+
     }
 
+    //method to display all the data that has been saved in the room database
     private void Display() {
         countriesList = new ArrayList<>();
-        countryAdapter = new CountryAdapter(countriesList, SearchByInitialLetter.this);
+        countryAdapter = new CountryAdapter(countriesList, WorldWeb.this);
         countryRecyclerView.setHasFixedSize(true);
         countryRecyclerView.setAdapter(countryAdapter);
         getCountries();
     }
 
+    //method to get all the countries from the database with all the data so that the display method can display it
     private void getCountries() {
         @SuppressLint("StaticFieldLeak")
         class GetCountriesTask extends AsyncTask<Void, Void, List<Country>> {
@@ -204,6 +205,13 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
         new GetCountriesTask().execute();
     }
 
+    //item clicked method from the listener interface
+    @Override
+    public void onItemClicked(Country country, int position) {
+        //nothing to do here as there is no onclick happening till now on the view, it can be used for further upgrades in the app
+    }
+
+    //method for deleting all the data from the room database
     public void DeletingData(){
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
@@ -215,31 +223,49 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
+                showToast("Data Deleted");
             }
         }
         new Delete().execute();
         countriesList = new ArrayList<>();
-        countryAdapter = new CountryAdapter(countriesList, SearchByInitialLetter.this);
+        countryAdapter = new CountryAdapter(countriesList, WorldWeb.this);
         countryRecyclerView.setHasFixedSize(true);
         countryRecyclerView.setAdapter(countryAdapter);
     }
 
-    void showToast(String message) {
-        Toast toast = new Toast(SearchByInitialLetter.this);
+    public void DataRefreshed(){
+        class Delete extends AsyncTask<Void, Void, List<Country>> {
+            @Override
+            protected List<Country> doInBackground(Void... voids) {
+                CountryDatabase.getCountryDatabase(getApplicationContext()).countryDao().deleteAll();
+                return null;
+            }
 
-        @SuppressLint("InflateParams") View view = LayoutInflater.from(SearchByInitialLetter.this)
+            @Override
+            protected void onPostExecute(List<Country> countries) {
+                super.onPostExecute(countries);
+                showToast("Data Refreshed");
+            }
+        }
+        new Delete().execute();
+        countriesList = new ArrayList<>();
+        countryAdapter = new CountryAdapter(countriesList, WorldWeb.this);
+        countryRecyclerView.setHasFixedSize(true);
+        countryRecyclerView.setAdapter(countryAdapter);
+    }
+
+    //method to display custom toast to the user
+    void showToast(String message) {
+        Toast toast = new Toast(WorldWeb.this);
+
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(WorldWeb.this)
                 .inflate(R.layout.toast_layout, null);
 
         TextView tvMessage = view.findViewById(R.id.Message); //text view from the custom toast layout
         tvMessage.setText(message);
 
         toast.setView(view);
-        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setDuration(Toast.LENGTH_SHORT);
         toast.show();
-    }
-
-    @Override
-    public void onItemClicked(Country country, int position) {
-
     }
 }
