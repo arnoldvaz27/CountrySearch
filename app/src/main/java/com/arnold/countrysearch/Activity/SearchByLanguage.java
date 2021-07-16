@@ -1,11 +1,13 @@
 package com.arnold.countrysearch.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -74,6 +76,8 @@ public class SearchByLanguage extends AppCompatActivity implements CountryListen
                 Fetching();
             }
         });
+        findViewById(R.id.info).setOnClickListener(v -> Info());
+
     }
 
 
@@ -244,5 +248,23 @@ public class SearchByLanguage extends AppCompatActivity implements CountryListen
     @Override
     public void onItemClicked(Country country, int position) {
 
+    }
+
+    private void Info() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SearchByLanguage.this,R.style.AlertDialog);
+        builder.setTitle("Important Note");
+        builder.setCancelable(false);
+
+        final TextView groupNameField = new TextView(SearchByLanguage.this);
+        groupNameField.setText("1) Type the language code of the country. \n\n2) After typing the code in the box press the search image in front of the text, if the code put by you is correct the results will be shown else a red box will be pop up showing some error.");
+        groupNameField.setPadding(20,30,20,20);
+        groupNameField.setTextColor(Color.BLACK);
+
+        groupNameField.setBackgroundColor(Color.WHITE);
+        builder.setView(groupNameField);
+
+        builder.setPositiveButton("Got it", (dialogInterface, i) -> dialogInterface.cancel());
+
+        builder.show();
     }
 }

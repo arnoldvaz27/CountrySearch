@@ -1,11 +1,13 @@
 package com.arnold.countrysearch.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -59,20 +61,14 @@ public class SearchByCallingCode extends AppCompatActivity implements CountryLis
         linearLayoutManager.setStackFromEnd(true);
         countryRecyclerView.setLayoutManager(linearLayoutManager);
 
-        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-            }
+        findViewById(R.id.delete).setOnClickListener(v -> DeletingData());
+
+        findViewById(R.id.go).setOnClickListener(v -> {
+            DeletingData();
+            Fetching();
         });
 
-        findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-                Fetching();
-            }
-        });
+        findViewById(R.id.info).setOnClickListener(v -> Info());
     }
 
     private void Fetching() {
@@ -242,5 +238,23 @@ public class SearchByCallingCode extends AppCompatActivity implements CountryLis
     @Override
     public void onItemClicked(Country country, int position) {
 
+    }
+
+    private void Info() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SearchByCallingCode.this,R.style.AlertDialog);
+        builder.setTitle("Important Note");
+        builder.setCancelable(false);
+
+        final TextView groupNameField = new TextView(SearchByCallingCode.this);
+        groupNameField.setText("1) Type the calling code of the country. \n\n2) After typing the code in the box press the search image in front of the text, if the code put by you is correct the results will be shown else a red box will be pop up showing some error.");
+        groupNameField.setPadding(20,30,20,20);
+        groupNameField.setTextColor(Color.BLACK);
+
+        groupNameField.setBackgroundColor(Color.WHITE);
+        builder.setView(groupNameField);
+
+        builder.setPositiveButton("Got it", (dialogInterface, i) -> dialogInterface.cancel());
+
+        builder.show();
     }
 }

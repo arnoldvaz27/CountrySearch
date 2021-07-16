@@ -1,11 +1,13 @@
 package com.arnold.countrysearch.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -79,6 +81,8 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
                 Fetching();
             }
         });
+        findViewById(R.id.info).setOnClickListener(v -> Info());
+
     }
     private void Fetching() {
         loadingBar.setTitle("Fetching Details");
@@ -247,5 +251,22 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
     @Override
     public void onItemClicked(Country country, int position) {
 
+    }
+    private void Info() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SearchByCountry.this,R.style.AlertDialog);
+        builder.setTitle("Important Note");
+        builder.setCancelable(false);
+
+        final TextView groupNameField = new TextView(SearchByCountry.this);
+        groupNameField.setText("1) Type the name of the country. \n\n2) After typing the name in the box press the search image in front of the text, if the code put by you is correct the results will be shown else a red box will be pop up showing some error.");
+        groupNameField.setPadding(20,30,20,20);
+        groupNameField.setTextColor(Color.BLACK);
+
+        groupNameField.setBackgroundColor(Color.WHITE);
+        builder.setView(groupNameField);
+
+        builder.setPositiveButton("Got it", (dialogInterface, i) -> dialogInterface.cancel());
+
+        builder.show();
     }
 }

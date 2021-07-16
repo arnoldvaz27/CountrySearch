@@ -49,7 +49,6 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
         getWindow().setNavigationBarColor(getResources().getColor(R.color.background));
         setContentView(R.layout.searchbyinitialletter);
 
-
         search = findViewById(R.id.search);
         countryRecyclerView = findViewById(R.id.RecyclerView);
         loadingBar = new ProgressDialog(this);
@@ -83,7 +82,7 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.getProgress();
         loadingBar.show();
-        url = "https://restcountries.eu/rest/v2/alpha/"+search.getText().toString();
+        url = "https://restcountries.eu/rest/v2/name/"+search.getText().toString();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
