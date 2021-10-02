@@ -95,6 +95,8 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
                     "\n\nAlpha3Code: "+country.getAlpha3Code()+"\n\nCalling Code: "+country.getCallingCodes()+"\n\nAlt Spellings: "+country.getAltSpellings()+"\n\nLatitude,Longitude: "+country.getLatlng()+
                     "\n\nDemonym: "+country.getDemonym()+"\n\nArea: "+country.getArea()+"\n\nGini: "+country.getGini()+"\n\nTimezones: "+country.getTimezones()+"\n\nNative Name: "+country.getNativeName()+
                     "\n\nNumeric Code: "+country.getNumericCode()+"\n\nCurrencies: "+country.getCurrencies()+"\n\nCioc: "+country.getCioc());
+
+
         }
     }
 

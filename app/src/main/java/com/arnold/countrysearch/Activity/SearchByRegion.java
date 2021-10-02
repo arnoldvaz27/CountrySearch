@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class SearchByRegion extends AppCompatActivity implements CountryListeners {
     ImageView imageView;
     String countryName, countryBorders, population, subregion, region, capital, flag, languages,topLevelDomain,area,latlng,numericCode,nativeName;
@@ -73,7 +74,7 @@ public class SearchByRegion extends AppCompatActivity implements CountryListener
         Fetching();
 
         //imageview with click listener, which will delete the data after the user clicks on this view
-        imageView.setOnClickListener(v -> DeletingData());regionName.setText("World web");
+        imageView.setOnClickListener(v -> DeletingData());
 
         //imageview with click listener, which will reload the whole activity without any animation.
         findViewById(R.id.refresh).setOnClickListener(v -> {
@@ -238,6 +239,7 @@ public class SearchByRegion extends AppCompatActivity implements CountryListener
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -258,6 +260,7 @@ public class SearchByRegion extends AppCompatActivity implements CountryListener
 
     //method for deleting all the data from the room database
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -279,6 +282,7 @@ public class SearchByRegion extends AppCompatActivity implements CountryListener
     }
 
     public void DataRefreshed(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {

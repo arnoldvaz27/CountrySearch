@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class SearchByCallingCode extends AppCompatActivity implements CountryListeners {
     EditText search;
     String countryName, countryBorders, population, subregion, region, capital, flag, languages,topLevelDomain,alpha2Code,alpha3Code
@@ -164,7 +165,7 @@ public class SearchByCallingCode extends AppCompatActivity implements CountryLis
                     e.printStackTrace();
                 }
             }
-        }, error -> showToast("Error, Please check the calling code and try again"));loadingBar.dismiss(); //in case of any error this toast will be executed
+        }, error -> showToast());loadingBar.dismiss(); //in case of any error this toast will be executed
 
         MySingleton.getInstance(SearchByCallingCode.this).addToRequestQueue(request);
 
@@ -188,6 +189,7 @@ public class SearchByCallingCode extends AppCompatActivity implements CountryLis
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -201,6 +203,7 @@ public class SearchByCallingCode extends AppCompatActivity implements CountryLis
     }
 
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -220,14 +223,15 @@ public class SearchByCallingCode extends AppCompatActivity implements CountryLis
         countryRecyclerView.setAdapter(countryAdapter);
     }
 
-    void showToast(String message) {
+    @SuppressLint("SetTextI18n")
+    void showToast() {
         Toast toast = new Toast(SearchByCallingCode.this);
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(SearchByCallingCode.this)
                 .inflate(R.layout.toast_layout, null);
 
         TextView tvMessage = view.findViewById(R.id.Message); //text view from the custom toast layout
-        tvMessage.setText(message);
+        tvMessage.setText("Error, Please check the calling code and try again");
 
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_LONG);

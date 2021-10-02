@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MoreMenu"
+    android:background="@drawable/splashscreen"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/holo_red"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="25dp"
+            app:tint="@color/white"
+            android:contentDescription="@string/moreMenu" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:includeFontPadding="false"
+            android:text="@string/more_options"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/privacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:padding="15dp"
+        android:weightSum="2"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/privacy"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="14dp"
+            app:tint="@color/black"
+            android:contentDescription="@string/moreMenu" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:includeFontPadding="false"
+            android:text="@string/privacy_policy"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/terms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:weightSum="2"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/terms"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="14dp"
+            app:tint="@color/black"
+            android:contentDescription="@string/moreMenu" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:includeFontPadding="false"
+            android:text="@string/terms_and_condition"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/developer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:weightSum="2"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/developer"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="16dp"
+            app:tint="@color/black"
+            android:contentDescription="@string/moreMenu" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:includeFontPadding="false"
+            android:text="@string/for_developer"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:weightSum="2"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/website"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="16dp"
+            app:tint="@color/black"
+            android:contentDescription="@string/moreMenu" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:includeFontPadding="false"
+            android:text="@string/website"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/youtube"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:weightSum="2"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/youtube"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="16dp"
+            app:tint="@color/black"
+            android:contentDescription="@string/moreMenu" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:includeFontPadding="false"
+            android:text="@string/youtube"
+            android:fontFamily="@font/regular"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

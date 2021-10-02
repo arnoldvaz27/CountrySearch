@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CountrySearch"
         tools:ignore="AllowBackup">
-        <activity android:name=".Activity.WorldWeb"></activity>
+        <activity android:name=".Activity.MoreMenu" />
+        <activity android:name=".Activity.WorldWeb" />
         <activity android:name=".Activity.SearchByRegion" />
         <activity android:name=".Activity.SearchByOrganizations" />
         <activity android:name=".Activity.SearchByInitialLetter" />

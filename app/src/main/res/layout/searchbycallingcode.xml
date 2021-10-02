@@ -58,7 +58,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="3dp"
-            android:src="@drawable/splashscreen" />
+            android:src="@drawable/splashscreen"
+            android:contentDescription="@string/todo" />
 
         <EditText
             android:id="@+id/search"
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:background="@null"
-            android:hint="Search Calling Code (try: 91 or 1)"
+            android:hint="@string/search_calling_code_try_91_or_1"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:includeFontPadding="false"
@@ -74,7 +75,6 @@
             android:textColor="@color/white"
             android:textColorHint="@android:color/darker_gray"
             android:textSize="17sp" />
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

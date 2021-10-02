@@ -25,4 +25,13 @@
     <string name="american_region">American Region</string>
     <string name="african_region">African Region</string>
     <string name="oceanic_region">Oceanic Region</string>
+    <string name="moreMenu">More Menu</string>
+    <string name="more_options">More Options</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_and_condition">Terms And Condition</string>
+    <string name="for_developer">For Developer</string>
+    <string name="website">Website</string>
+    <string name="youtube">YouTube</string>
+    <string name="todo">TODO</string>
+    <string name="search_calling_code_try_91_or_1">Search Calling Code (try: 91 or 1)</string>
 </resources>

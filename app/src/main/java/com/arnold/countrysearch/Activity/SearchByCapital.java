@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class SearchByCapital extends AppCompatActivity implements CountryListeners {
 
     EditText search;
@@ -167,7 +168,7 @@ public class SearchByCapital extends AppCompatActivity implements CountryListene
                     e.printStackTrace();
                 }
             }
-        }, error -> showToast("Error, Please check the capital name and try again"));loadingBar.dismiss(); //in case of any error this toast will be executed
+        }, error -> showToast());loadingBar.dismiss(); //in case of any error this toast will be executed
 
         MySingleton.getInstance(SearchByCapital.this).addToRequestQueue(request);
 
@@ -191,6 +192,7 @@ public class SearchByCapital extends AppCompatActivity implements CountryListene
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -204,6 +206,7 @@ public class SearchByCapital extends AppCompatActivity implements CountryListene
     }
 
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -223,14 +226,15 @@ public class SearchByCapital extends AppCompatActivity implements CountryListene
         countryRecyclerView.setAdapter(countryAdapter);
     }
 
-    void showToast(String message) {
+    @SuppressLint("SetTextI18n")
+    void showToast() {
         Toast toast = new Toast(SearchByCapital.this);
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(SearchByCapital.this)
                 .inflate(R.layout.toast_layout, null);
 
         TextView tvMessage = view.findViewById(R.id.Message); //text view from the custom toast layout
-        tvMessage.setText(message);
+        tvMessage.setText("Error, Please check the capital name and try again");
 
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_LONG);

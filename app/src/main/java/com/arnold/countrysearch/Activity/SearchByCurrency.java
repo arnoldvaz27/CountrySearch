@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class SearchByCurrency extends AppCompatActivity implements CountryListeners {
 
     EditText search;
@@ -63,19 +64,11 @@ public class SearchByCurrency extends AppCompatActivity implements CountryListen
         linearLayoutManager.setStackFromEnd(true);
         countryRecyclerView.setLayoutManager(linearLayoutManager);
 
-        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-            }
-        });
+        findViewById(R.id.delete).setOnClickListener(v -> DeletingData());
 
-        findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-                Fetching();
-            }
+        findViewById(R.id.go).setOnClickListener(v -> {
+            DeletingData();
+            Fetching();
         });
 
         findViewById(R.id.info).setOnClickListener(v -> Info());
@@ -176,7 +169,7 @@ public class SearchByCurrency extends AppCompatActivity implements CountryListen
                     e.printStackTrace();
                 }
             }
-        }, error -> showToast("Error, Please check the currency code and try again"));loadingBar.dismiss(); //in case of any error this toast will be executed
+        }, error -> showToast());loadingBar.dismiss(); //in case of any error this toast will be executed
 
         MySingleton.getInstance(SearchByCurrency.this).addToRequestQueue(request);
 
@@ -200,6 +193,7 @@ public class SearchByCurrency extends AppCompatActivity implements CountryListen
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -213,6 +207,7 @@ public class SearchByCurrency extends AppCompatActivity implements CountryListen
     }
 
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -232,14 +227,15 @@ public class SearchByCurrency extends AppCompatActivity implements CountryListen
         countryRecyclerView.setAdapter(countryAdapter);
     }
 
-    void showToast(String message) {
+    @SuppressLint("SetTextI18n")
+    void showToast() {
         Toast toast = new Toast(SearchByCurrency.this);
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(SearchByCurrency.this)
                 .inflate(R.layout.toast_layout, null);
 
         TextView tvMessage = view.findViewById(R.id.Message); //text view from the custom toast layout
-        tvMessage.setText(message);
+        tvMessage.setText("Error, Please check the currency code and try again");
 
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_LONG);

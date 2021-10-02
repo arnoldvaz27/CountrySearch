@@ -1,11 +1,13 @@
 package com.arnold.countrysearch.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class SearchByInitialLetter extends AppCompatActivity implements CountryListeners {
 
     EditText search;
@@ -59,20 +62,15 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
         linearLayoutManager.setStackFromEnd(true);
         countryRecyclerView.setLayoutManager(linearLayoutManager);
 
-        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-            }
+        findViewById(R.id.delete).setOnClickListener(v -> DeletingData());
+
+        findViewById(R.id.go).setOnClickListener(v -> {
+            DeletingData();
+            Fetching();
         });
 
-        findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-                Fetching();
-            }
-        });
+        findViewById(R.id.info).setOnClickListener(v -> Info());
+
     }
 
     private void Fetching() {
@@ -169,7 +167,7 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
                     e.printStackTrace();
                 }
             }
-        }, error -> showToast("Error, Please check the initial letter code and try again"));loadingBar.dismiss(); //in case of any error this toast will be executed
+        }, error -> showToast());loadingBar.dismiss(); //in case of any error this toast will be executed
 
         MySingleton.getInstance(SearchByInitialLetter.this).addToRequestQueue(request);
     }
@@ -192,6 +190,7 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -205,6 +204,7 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
     }
 
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -224,14 +224,15 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
         countryRecyclerView.setAdapter(countryAdapter);
     }
 
-    void showToast(String message) {
+    @SuppressLint("SetTextI18n")
+    void showToast() {
         Toast toast = new Toast(SearchByInitialLetter.this);
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(SearchByInitialLetter.this)
                 .inflate(R.layout.toast_layout, null);
 
         TextView tvMessage = view.findViewById(R.id.Message); //text view from the custom toast layout
-        tvMessage.setText(message);
+        tvMessage.setText("Error, Please check the initial letter code and try again");
 
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_LONG);
@@ -242,4 +243,22 @@ public class SearchByInitialLetter extends AppCompatActivity implements CountryL
     public void onItemClicked(Country country, int position) {
 
     }
+    private void Info() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SearchByInitialLetter.this,R.style.AlertDialog);
+        builder.setTitle("Important Note");
+        builder.setCancelable(false);
+
+        final TextView groupNameField = new TextView(SearchByInitialLetter.this);
+        groupNameField.setText("1) Type the countries initial letters. \n\n2) After typing the letters in the box press the search image in front of the text, if the letters put by you is correct the results will be shown else a red box will be pop up showing some error.");
+        groupNameField.setPadding(20,30,20,20);
+        groupNameField.setTextColor(Color.BLACK);
+
+        groupNameField.setBackgroundColor(Color.WHITE);
+        builder.setView(groupNameField);
+
+        builder.setPositiveButton("Got it", (dialogInterface, i) -> dialogInterface.cancel());
+
+        builder.show();
+    }
+
 }

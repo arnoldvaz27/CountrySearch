@@ -1,24 +1,20 @@
 package com.arnold.countrysearch.Activity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -37,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class SearchByCountry extends AppCompatActivity implements CountryListeners {
 
     EditText search;
@@ -66,19 +63,11 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
         linearLayoutManager.setStackFromEnd(true);
         countryRecyclerView.setLayoutManager(linearLayoutManager);
 
-        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-            }
-        });
+        findViewById(R.id.delete).setOnClickListener(v -> DeletingData());
 
-        findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeletingData();
-                Fetching();
-            }
+        findViewById(R.id.go).setOnClickListener(v -> {
+            DeletingData();
+            Fetching();
         });
         findViewById(R.id.info).setOnClickListener(v -> Info());
 
@@ -177,7 +166,7 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
                     e.printStackTrace();
                 }
             }
-        }, error -> showToast("Error, Please check the country name and try again"));loadingBar.dismiss(); //in case of any error this toast will be executed
+        }, error -> showToast());loadingBar.dismiss(); //in case of any error this toast will be executed
 
         MySingleton.getInstance(SearchByCountry.this).addToRequestQueue(request);
 
@@ -201,6 +190,7 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -214,6 +204,7 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
     }
 
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -233,14 +224,15 @@ public class SearchByCountry extends AppCompatActivity implements CountryListene
         countryRecyclerView.setAdapter(countryAdapter);
     }
 
-    void showToast(String message) {
+    @SuppressLint("SetTextI18n")
+    void showToast() {
         Toast toast = new Toast(SearchByCountry.this);
 
         @SuppressLint("InflateParams") View view = LayoutInflater.from(SearchByCountry.this)
                 .inflate(R.layout.toast_layout, null);
 
         TextView tvMessage = view.findViewById(R.id.Message); //text view from the custom toast layout
-        tvMessage.setText(message);
+        tvMessage.setText("Error, Please check the country name and try again");
 
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_LONG);

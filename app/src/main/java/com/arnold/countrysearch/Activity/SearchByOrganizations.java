@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class SearchByOrganizations extends AppCompatActivity implements CountryListeners {
 
     ImageView imageView;
@@ -77,7 +78,7 @@ public class SearchByOrganizations extends AppCompatActivity implements CountryL
         Fetching();
 
         //imageview with click listener, which will delete the data after the user clicks on this view
-        imageView.setOnClickListener(v -> DeletingData());associationName.setText("World web");
+        imageView.setOnClickListener(v -> DeletingData());
 
 
         //imageview with click listener, which will reload the whole activity without any animation.
@@ -300,6 +301,7 @@ public class SearchByOrganizations extends AppCompatActivity implements CountryL
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -320,6 +322,7 @@ public class SearchByOrganizations extends AppCompatActivity implements CountryL
 
     //method for deleting all the data from the room database
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -341,6 +344,7 @@ public class SearchByOrganizations extends AppCompatActivity implements CountryL
     }
 
     public void DataRefreshed(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {

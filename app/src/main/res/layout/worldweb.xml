@@ -27,9 +27,17 @@
             android:textSize="20sp" />
 
         <ImageView
+            android:id="@+id/info"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="11dp"
+            android:src="@drawable/info"
+            app:tint="@color/white" />
+
+        <ImageView
             android:id="@+id/refresh"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/refresh"
             android:layout_marginEnd="8dp"
             app:tint="@color/white"
@@ -37,8 +45,8 @@
 
         <ImageView
             android:id="@+id/delete"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/delete"
             app:tint="@color/white"
             android:contentDescription="@string/delete_image" />

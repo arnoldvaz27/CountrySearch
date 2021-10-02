@@ -1,5 +1,6 @@
 package com.arnold.countrysearch.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"deprecation"})
 public class WorldWeb extends AppCompatActivity implements CountryListeners {
     ImageView imageView;
     String countryName, countryBorders, population, subregion, region, capital, flag, languages,topLevelDomain,area,latlng,numericCode,nativeName;
@@ -73,7 +76,6 @@ public class WorldWeb extends AppCompatActivity implements CountryListeners {
 
         //imageview with click listener, which will delete the data after the user clicks on this view
         imageView.setOnClickListener(v -> DeletingData());
-        worldWeb.setText("World web");
 
         //imageview with click listener, which will reload the whole activity without any animation.
         findViewById(R.id.refresh).setOnClickListener(v -> {
@@ -84,6 +86,9 @@ public class WorldWeb extends AppCompatActivity implements CountryListeners {
             startActivity(i);
             overridePendingTransition(0, 0);
         });
+
+        findViewById(R.id.info).setOnClickListener(v -> Info());
+
 
     }
     private void Fetching() {
@@ -193,6 +198,7 @@ public class WorldWeb extends AppCompatActivity implements CountryListeners {
                         .countryDao().getAllCountries();
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(List<Country> countries) {
                 super.onPostExecute(countries);
@@ -213,6 +219,7 @@ public class WorldWeb extends AppCompatActivity implements CountryListeners {
 
     //method for deleting all the data from the room database
     public void DeletingData(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -234,6 +241,7 @@ public class WorldWeb extends AppCompatActivity implements CountryListeners {
     }
 
     public void DataRefreshed(){
+        @SuppressLint("StaticFieldLeak")
         class Delete extends AsyncTask<Void, Void, List<Country>> {
             @Override
             protected List<Country> doInBackground(Void... voids) {
@@ -267,5 +275,25 @@ public class WorldWeb extends AppCompatActivity implements CountryListeners {
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private void Info() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WorldWeb.this,R.style.AlertDialog);
+        builder.setTitle("Important Note");
+        builder.setCancelable(false);
+
+        final TextView groupNameField = new TextView(WorldWeb.this);
+        groupNameField.setText("Fields that have null means there is no data related to that.");
+        groupNameField.setPadding(20,30,20,20);
+        groupNameField.setTextColor(Color.BLACK);
+
+        groupNameField.setBackgroundColor(Color.WHITE);
+        builder.setView(groupNameField);
+
+        builder.setPositiveButton("Got it", (dialogInterface, i) -> dialogInterface.cancel());
+
+        builder.show();
     }
 }
